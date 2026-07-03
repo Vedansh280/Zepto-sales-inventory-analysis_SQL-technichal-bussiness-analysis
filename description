@@ -1,0 +1,50 @@
+# Zepto-sales-inventory-analysis-technichal-bussiness-analysis-
+
+## Overview
+SQL analysis of a Zepto (quick-commerce grocery) product catalog, covering sales trends, discount patterns, stock availability, and inventory value across 14 product categories. The project uses window functions, CTEs, and aggregate queries to surface actionable business insights.
+
+## Dataset
+- **zepto_sales_analysis** — product catalog with Category, Name, MRP, Discount %, Available Quantity, Discounted Selling Price, Weight, Out-of-Stock flag, and Quantity
+- Spans 14 categories including Beverages, Munchies, Cooking Essentials, Personal Care, Fruits & Vegetables, and more
+
+## Skills Demonstrated
+- Table design and data loading
+- Filtering and conditional logic (CASE WHEN for discount tiers)
+- Aggregations (SUM, AVG, COUNT, COUNT FILTER, GROUP BY, HAVING)
+- Subqueries (categories with above-average product count)
+- CTEs (Common Table Expressions)
+- Window functions — DENSE_RANK, ROW_NUMBER, running totals (SUM OVER)
+- Data quality investigation (duplicate/miscategorized products)
+
+## Project Structure
+```
+zepto-sales-inventory-analysis/
+├── README.md
+├── schema/
+│   └── create_table.sql          -- table definition
+├── queries/
+│   └── analysis_queries.sql      -- 13 business analysis queries
+├── results/                      -- CSV output of each query
+│   └── query_01...13_*.csv
+└── screenshots/                  -- pgAdmin screenshots of each query result
+    └── query_01...13_*.png
+```
+
+> Note: the raw dataset CSV is not included in this repo. Add it under a `sample_data/` folder if you want the project to be fully reproducible end-to-end.
+
+## Key Insights
+- **Data quality issue** — several products (e.g. Maybelline Kajal, Everest Saffron Kesar, Borges Olive Oil) are listed under multiple categories simultaneously, inflating category-level counts and skewing aggregates — a real-world catalog hygiene problem worth flagging
+- **Category-wise inventory value** — Cooking Essentials and Munchies lead with ~₹3.32 crore each in inventory value; Fruits & Vegetables has the lowest at ~₹10.8 lakh
+- **Stock availability** — Munchies and Cooking Essentials have the most products (503 each) but also the highest out-of-stock counts (64 each)
+- **Discounting** — Fruits & Vegetables has the highest average discount (15.46%), while Home & Cleaning has the lowest (5.62%)
+- **High-discount items** — several products carry a flat 50% discount across multiple categories, likely a promotional campaign rather than organic pricing
+
+## How to Run
+1. Create a new PostgreSQL database.
+2. Run `schema/create_table.sql` to create the table.
+3. Import your Zepto dataset CSV into `zepto_sales_analysis`.
+4. Run the queries in `queries/analysis_queries.sql` to reproduce the analysis.
+5. Compare your output against `results/` (CSV) or `screenshots/` (pgAdmin visuals) to verify.
+
+## Tools Used
+PostgreSQL, SQL (window functions, CTEs, aggregate queries)
